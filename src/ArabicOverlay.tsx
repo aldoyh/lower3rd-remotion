@@ -1,4 +1,4 @@
-import { loadFont } from "@remotion/google-fonts/Roboto";
+import { loadFont } from "@remotion/google-fonts/Tajawal";
 import React, { useMemo } from "react";
 import {
   AbsoluteFill,
@@ -9,14 +9,14 @@ import {
 } from "remotion";
 
 const { fontFamily } = loadFont("normal", {
-  subsets: ["latin"],
+  subsets: ["arabic"],
   weights: ["400", "700"],
 });
 
-const ACCENT_COLOR = "#4290F5";
+const ACCENT_COLOR = "#E8A020";
 const disappearBeforeEnd = 20;
 
-export const Overlay: React.FC = () => {
+export const ArabicOverlay: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width } = useVideoConfig();
 
@@ -33,18 +33,19 @@ export const Overlay: React.FC = () => {
     durationInFrames: disappearBeforeEnd,
   });
 
-  const slideX = interpolate(slideIn, [0, 1], [-width, 0]);
-  const slideOutX = interpolate(out, [0, 1], [0, -width]);
+  const slideX = interpolate(slideIn, [0, 1], [width, 0]);
+  const slideOutX = interpolate(out, [0, 1], [0, width]);
 
   const container: React.CSSProperties = useMemo(
     () => ({
       position: "absolute",
       bottom: 120,
-      left: 0,
+      right: 0,
       translate: `${slideX + slideOutX}px 0`,
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "row-reverse",
       alignItems: "stretch",
+      direction: "rtl",
     }),
     [slideX, slideOutX],
   );
@@ -52,16 +53,18 @@ export const Overlay: React.FC = () => {
   const accentBar: React.CSSProperties = {
     width: 10,
     backgroundColor: ACCENT_COLOR,
-    borderRadius: "0 4px 4px 0",
+    borderRadius: "4px 0 0 4px",
     flexShrink: 0,
   };
 
   const textBlock: React.CSSProperties = {
     backgroundColor: "rgba(10, 10, 10, 0.88)",
-    padding: "22px 40px 22px 28px",
+    padding: "22px 28px 22px 40px",
     display: "flex",
     flexDirection: "column",
     gap: 8,
+    direction: "rtl",
+    unicodeBidi: "embed",
   };
 
   const nameStyle: React.CSSProperties = {
@@ -69,8 +72,10 @@ export const Overlay: React.FC = () => {
     fontSize: 52,
     fontWeight: "700",
     color: "#ffffff",
-    lineHeight: 1.15,
-    letterSpacing: "0.02em",
+    lineHeight: 1.3,
+    direction: "rtl",
+    unicodeBidi: "embed",
+    textAlign: "right",
   };
 
   const roleStyle: React.CSSProperties = {
@@ -78,8 +83,9 @@ export const Overlay: React.FC = () => {
     fontSize: 30,
     fontWeight: "400",
     color: ACCENT_COLOR,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
+    direction: "rtl",
+    unicodeBidi: "embed",
+    textAlign: "right",
   };
 
   return (
@@ -87,8 +93,8 @@ export const Overlay: React.FC = () => {
       <div style={container}>
         <div style={accentBar} />
         <div style={textBlock}>
-          <div style={nameStyle}>Jane Smith</div>
-          <div style={roleStyle}>Senior Correspondent</div>
+          <div style={nameStyle}>فاطمة الزهراء</div>
+          <div style={roleStyle}>مراسلة أخبار دولية</div>
         </div>
       </div>
     </AbsoluteFill>

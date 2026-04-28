@@ -1,4 +1,5 @@
 import { Composition } from "remotion";
+import { ArabicOverlay } from "./ArabicOverlay";
 import { Overlay } from "./Overlay";
 
 export const RemotionRoot: React.FC = () => {
@@ -7,6 +8,14 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="Overlay"
         component={Overlay}
+        durationInFrames={75}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="ArabicOverlay"
+        component={ArabicOverlay}
         durationInFrames={75}
         fps={30}
         width={1920}
